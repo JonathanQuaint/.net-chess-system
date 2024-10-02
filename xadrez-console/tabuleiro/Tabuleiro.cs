@@ -13,6 +13,7 @@ namespace tabuleiro
         public int Colunas { get; set; }
         private Peca[,] Pecas;
 
+
         public Tabuleiro(int linha, int colunas)
         {
             Linhas = linha;
@@ -46,6 +47,23 @@ namespace tabuleiro
             p.posicao = pos;
 
         }
+
+        public Peca retirarPeca(Posicao pos) 
+        { 
+        if (!existePeca(pos)) 
+            {
+                return null;
+            
+            
+            
+            }
+            Peca aux = peca(pos);
+            aux.posicao = null;
+            Pecas[pos.Linha, pos.Coluna] = null;
+        
+            return aux;
+        }
+
 
         public bool existePeca(Posicao pos) 
         { 

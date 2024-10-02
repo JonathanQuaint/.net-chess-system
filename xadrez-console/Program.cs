@@ -9,15 +9,23 @@ internal class Program
 
         try
         {
-            Tabuleiro tab = new Tabuleiro(8, 8);
+           PartidaDeXadrez partida = new PartidaDeXadrez();
 
-            tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
-            tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
-            tab.colocarPeca(new Rei(tab, Cor.Preta), new Posicao(2, 4));
+            while (!partida.terminada)
+            {
 
-            tab.colocarPeca(new Torre(tab, Cor.Branca), new Posicao(3, 5));
+                Console.Clear();
+                Tela.ImprimirTabuleiro(partida.tab);
 
-            Tela.ImprimirTabuleiro(tab);
+                Console.WriteLine("Origem: ");
+                Posicao origem = Tela.lerPosicaoXadrez().toPosition();
+                Console.WriteLine("Destino: ");
+                Posicao destino = Tela.lerPosicaoXadrez().toPosition();
+
+                partida.executarMovimento(origem, destino);
+            }
+
+           
         }
 
         catch (TabuleiroException e) 
