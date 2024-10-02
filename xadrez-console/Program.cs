@@ -17,9 +17,18 @@ internal class Program
                 Console.Clear();
                 Tela.ImprimirTabuleiro(partida.tab);
 
-                Console.WriteLine("Origem: ");
+                Console.WriteLine();
+                Console.Write("Origem: ");
                 Posicao origem = Tela.lerPosicaoXadrez().toPosition();
-                Console.WriteLine("Destino: ");
+
+
+                bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+                
+                Console.Clear();
+                Tela.ImprimirTabuleiro(partida.tab, posicoesPossiveis);
+
+
+                Console.Write("Destino: ");
                 Posicao destino = Tela.lerPosicaoXadrez().toPosition();
 
                 partida.executarMovimento(origem, destino);
