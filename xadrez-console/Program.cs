@@ -14,24 +14,40 @@ internal class Program
             while (!partida.terminada)
             {
 
-                Console.Clear();
-                Tela.ImprimirTabuleiro(partida.tab);
+                try
+                {
 
-                Console.WriteLine();
-                Console.Write("Origem: ");
-                Posicao origem = Tela.lerPosicaoXadrez().toPosition();
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partida.Tab);
+
+                    Console.WriteLine();
+                    Console.WriteLine("Turno: " + partida.Turno);
+                    Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.lerPosicaoXadrez().toPosition();
+                    partida.ValidarPosicaoDeOrigem(origem);
 
 
-                bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
-                
-                Console.Clear();
-                Tela.ImprimirTabuleiro(partida.tab, posicoesPossiveis);
+                    bool[,] posicoesPossiveis = partida.Tab.peca(origem).movimentosPossiveis();
+
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
 
 
-                Console.Write("Destino: ");
-                Posicao destino = Tela.lerPosicaoXadrez().toPosition();
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrez().toPosition();
+                    partida.validarPosicaoDeDestino(origem, destino);
 
-                partida.executarMovimento(origem, destino);
+                    partida.realizadaJogada(origem, destino);
+                }
+                catch (TabuleiroException e)
+                {
+
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
+                }
             }
 
            
