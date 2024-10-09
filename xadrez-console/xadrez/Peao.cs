@@ -9,9 +9,11 @@ namespace xadrez
 {
     internal class Peao : Peca
     {
+        private PartidaDeXadrez partida;
 
-        public Peao(Tabuleiro tab, Cor cor) : base(tab, cor)
+        public Peao(Tabuleiro tab, Cor cor, PartidaDeXadrez partida) : base(tab, cor)
         {
+            this.partida = partida;
         }
 
         public override string ToString()
@@ -73,6 +75,24 @@ namespace xadrez
 
                 }
 
+                // #jogadaespecial en passant
+
+                if (posicao.Linha == 3)
+                {
+                    Posicao esquerda = new Posicao(posicao.Linha, posicao.Coluna -  1);
+                    if (tab.posicaoValida(esquerda) && ExisteInimigo(esquerda) && tab.peca(esquerda) == partida.vuneralvelenPassant)
+                    {
+                        mat[esquerda.Linha - 1, esquerda.Coluna] = true;
+                    }
+
+                    Posicao direita = new Posicao(posicao.Linha, posicao.Coluna + 1);
+                    if (tab.posicaoValida(direita) && ExisteInimigo(direita) && tab.peca(direita) == partida.vuneralvelenPassant)
+                    {
+                        mat[direita.Linha - 1, direita.Coluna] = true;
+                    }
+
+                }
+
             }
 
             else
@@ -112,6 +132,26 @@ namespace xadrez
 
 
                 }
+
+
+                // #jogadaespecial en passant
+
+                if (posicao.Linha == 4)
+                {
+                    Posicao esquerda = new Posicao(posicao.Linha, posicao.Coluna - 1);
+                    if (tab.posicaoValida(esquerda) && ExisteInimigo(esquerda) && tab.peca(esquerda) == partida.vuneralvelenPassant)
+                    {
+                        mat[esquerda.Linha + 1, esquerda.Coluna] = true;
+                    }
+
+                    Posicao direita = new Posicao(posicao.Linha, posicao.Coluna + 1);
+                    if (tab.posicaoValida(direita) && ExisteInimigo(direita) && tab.peca(direita) == partida.vuneralvelenPassant)
+                    {
+                        mat[direita.Linha + 1, direita.Coluna] = true;
+                    }
+
+                }
+
             }
 
             return mat;
